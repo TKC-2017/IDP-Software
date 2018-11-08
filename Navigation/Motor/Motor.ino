@@ -5,33 +5,37 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMotor(2), 
 *myMotor_front1 = AFMS.getMotor(3), *myMotor_front2 = AFMS.getMotor(4);
 
- void setup() {
+/*
+ * 
+void setup() {
   // put your setup code here, to run once:
 
 AFMS.begin();
   // front motors running continuosly
-  myMotor_front1->setSpeed(0);
+  myMotor_front1->setSpeed(100);
   myMotor_front1->run(FORWARD);
-  myMotor_front2->setSpeed(0);
+  myMotor_front2->setSpeed(100);
   myMotor_front2->run(FORWARD);
 
-  myMotor_left->setSpeed(0);
+  myMotor_left->setSpeed(100);
   myMotor_left->run(FORWARD);
-  myMotor_right->setSpeed(0);
+  myMotor_right->setSpeed(100);
   myMotor_right->run(FORWARD);
 
-
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-collector();
-forward(0);
-delay(1000);
-stops();
-delay(1000);
 
+MOTOR TEST
+
+void loop() { 
+  collector();
+  forward(0);
+  delay(1000);
+  stops();
+  delay(1000);
 }
+
+*/
 
 void forward(int speed) {
   myMotor_left->setSpeed(speed);
@@ -54,7 +58,8 @@ void left() {
     myMotor_left->run(FORWARD);
     myMotor_right->setSpeed(100);
     myMotor_right->run(BACKWARD);
-}}
+  }
+}
 
 void right() {
   new_heading = heading + 90 ;
@@ -63,7 +68,8 @@ void right() {
     myMotor_left->run(BACKWARD);
     myMotor_right->setSpeed(100);
     myMotor_right->run(FORWARD);
-}}
+  }
+}
 
 void stops() {
   myMotor_left->setSpeed(0);

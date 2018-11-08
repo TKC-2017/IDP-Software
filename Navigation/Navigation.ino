@@ -12,64 +12,19 @@ Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMoto
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 
-// import compass code 
+// import compass code and motor code
 // !!! check this works 
 #include <Ultrasound_compass.h>
+#include <Motor.h>
 
-// motor control with variable speed
-
-void forward(int speed) {
-  myMotor_left->setSpeed(speed);
-  myMotor_left->run(FORWARD);
-  myMotor_right->setSpeed(speed);
-  myMotor_right->run(FORWARD);
-}
-
-void backward(int speed) {
-  myMotor_left->setSpeed(speed);
-  myMotor_left->run(BACKWARD);
-  myMotor_right->setSpeed(speed);
-  myMotor_right->run(BACKWARD);
-}
-
-void left() {
-  new_heading = heading - 90;
-  while (heading > new_heading) {
-    myMotor_left->setSpeed(100);
-    myMotor_left->run(FORWARD);
-    myMotor_right->setSpeed(100);
-    myMotor_right->run(BACKWARD);
-}}
-
-void right() {
-  new_heading = heading + 90;
-  while (heading < new_heading) {
-    myMotor_left->setSpeed(100);
-    myMotor_left->run(BACKWARD);
-    myMotor_right->setSpeed(100);
-    myMotor_right->run(FORWARD);
-}}
-
-void stops() {
-  myMotor_left->setSpeed(0);
-  myMotor_left->run(FORWARD);
-  myMotor_right->setSpeed(0);
-  myMotor_right->run(BACKWARD);
-}
-
-void collector() {
-  myMotor_front1->setSpeed(100);
-  myMotor_front1->run(FORWARD);
-  myMotor_front2->setSpeed(100);
-  myMotor_front2->run(FORWARD);
-  
-}
 
 
 void setup() {
   // put your setup code here, to run once:
 
 }
+
+
 
 void loop() {
   // put your main code here, to run repeatedly:
