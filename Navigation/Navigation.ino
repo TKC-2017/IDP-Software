@@ -14,8 +14,10 @@ Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMoto
 
 // import compass code and motor code
 // !!! check this works 
-#include <Ultrasound_compass.h>
-#include <Motor.h>
+#include <iostream>
+#include "Ultrasound_compass.h"
+#include "Motor.h"
+using namespace std;
 
 
 
@@ -39,7 +41,7 @@ void loop() {
     // need to correct variable for mine detection
       if (heading < 160 && heading > 200) {
       // robot is not facing south, also if on default path
-        if (distance_to_wall > range) {
+        if (distance() > range) {
           forward(100); }
         else {
           stops();
