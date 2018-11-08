@@ -2,21 +2,23 @@
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_MS_PWMServoDriver.h"
 Adafruit_MotorShield AFMS = Adafruit_MotorShield(); 
-Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMotor(2), *myMotor_front1 = AFMS.getMotor(3), *myMotor_front2 = AFMS.getMotor(4);
+Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMotor(2), 
+*myMotor_front1 = AFMS.getMotor(3), *myMotor_front2 = AFMS.getMotor(4);
 
  void setup() {
   // put your setup code here, to run once:
 
 AFMS.begin();
-//myMotor_front1->setSpeed(0);
-//myMotor_front1->run(FORWARD);
-//myMotor_front2->setSpeed(0);
-//myMotor_front2->run(FORWARD);
+  // front motors running continuosly
+  myMotor_front1->setSpeed(0);
+  myMotor_front1->run(FORWARD);
+  myMotor_front2->setSpeed(0);
+  myMotor_front2->run(FORWARD);
 
-myMotor_left->setSpeed(0);
-myMotor_left->run(FORWARD);
-myMotor_right->setSpeed(0);
-myMotor_right->run(FORWARD);
+  myMotor_left->setSpeed(0);
+  myMotor_left->run(FORWARD);
+  myMotor_right->setSpeed(0);
+  myMotor_right->run(FORWARD);
 
 
 }
@@ -46,18 +48,22 @@ void backward(int speed) {
 }
 
 void left() {
-  myMotor_left->setSpeed(100);
-  myMotor_left->run(FORWARD);
-  myMotor_right->setSpeed(100);
-  myMotor_right->run(BACKWARD);
-}
+  new_heading = heading - 90 ;
+  while (heading > new_heading) {
+    myMotor_left->setSpeed(100);
+    myMotor_left->run(FORWARD);
+    myMotor_right->setSpeed(100);
+    myMotor_right->run(BACKWARD);
+}}
 
 void right() {
-  myMotor_left->setSpeed(100);
-  myMotor_left->run(BACKWARD);
-  myMotor_right->setSpeed(100);
-  myMotor_right->run(FORWARD);
-}
+  new_heading = heading + 90 ;
+  while (heading < new_heading) {
+    myMotor_left->setSpeed(100);
+    myMotor_left->run(BACKWARD);
+    myMotor_right->setSpeed(100);
+    myMotor_right->run(FORWARD);
+}}
 
 void stops() {
   myMotor_left->setSpeed(0);

@@ -29,7 +29,7 @@ void backward(int speed) {
 }
 
 void left() {
-  new_heading = heading - 90
+  new_heading = heading - 90;
   while (heading > new_heading) {
     myMotor_left->setSpeed(100);
     myMotor_left->run(FORWARD);
@@ -38,7 +38,7 @@ void left() {
 }}
 
 void right() {
-  new_heading = heading + 90
+  new_heading = heading + 90;
   while (heading < new_heading) {
     myMotor_left->setSpeed(100);
     myMotor_left->run(BACKWARD);
@@ -71,7 +71,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   
   // set initial distance to wall range
-  range = 20
+  range = 20;
   
   while (//not at end condition, robot not at centre) {
   
@@ -80,20 +80,20 @@ void loop() {
     // need to correct variable for mine detection
       if (heading < 160 && heading > 200) {
       // robot is not facing south, also if on default path
-        if distance_to_wall > range {
-          forward(100) }
+        if (distance_to_wall > range) {
+          forward(100); }
         else {
-          stops()
-          left() }
+          stops();
+          left(); }
       }
       else {
       // robot is facing south
-       range += 25
-       if distance_to_wall > range {
-          forward(100) }
+       range += 25;
+       if (distance_to_wall > range) {
+          forward(100); }
        else {
-          stops()
-          left() }
+          stops();
+          left(); }
       }
     }
     
@@ -101,27 +101,28 @@ void loop() {
     // if mine detected
     // need to change variables / use sensor code
       if (mine = yellow) {
-        stops()
-        delay(3000)
-        forwards(1000) }
+        stops();
+        delay(3000);
+        forwards(1000); }
       else {
-        stops(3000)
+        stops(3000);
         if ( check(current_position) = safe) {
           // create function that checks for red mines on outside of spiral 
           // at diamater from current position
-          right()
-          forward(100)
-          delay(2000) // either use delay or range sensors for forward distance
-          stops()
-          left()
-          forward(100)
-          delay(2000) // as above
-          stops()
-          left()
-          forward(100)
-          delay(2000) // as above
-          stops()
-          right()
+          // write separately?
+          right();
+          forward(100);
+          delay(2000); // either use delay or range sensors for forward distance
+          stops();
+          left();
+          forward(100);
+          delay(2000); // as above
+          stops();
+          left();
+          forward(100);
+          delay(2000); // as above
+          stops();
+          right();
         }
       }
     }
