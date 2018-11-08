@@ -12,6 +12,10 @@ Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMoto
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 
+// import compass code 
+// !!! check this works 
+#include <Ultrasound_compass.h>
+
 // motor control with variable speed
 
 void forward(int speed) {
