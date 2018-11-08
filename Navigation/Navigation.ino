@@ -12,7 +12,7 @@ Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMoto
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 
-// motor control with variale speed
+// motor control with variable speed
 
 void forward(int speed) {
   myMotor_left->setSpeed(speed);
@@ -78,7 +78,7 @@ void loop() {
     if ("mine_detetced" = 0) {
     // follows default path
     // need to correct variable for mine detection
-      if (heading < 160 and heading > 200) {
+      if (heading < 160 && heading > 200) {
       // robot is not facing south, also if on default path
         if distance_to_wall > range {
           forward(100) }
