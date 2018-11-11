@@ -11,12 +11,12 @@ void loop() {
   
   // compass test - correct robot orientation to North
   if (heading < 180) {
-    while (heading < 180) {
+    while (heading() < 180) {
       left(); 
     }
   }
   else {
-    while (heading > 180) {
+    while (heading() > 180) {
       right(); 
     }
   }
