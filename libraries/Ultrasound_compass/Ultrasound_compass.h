@@ -1,15 +1,3 @@
-#ifndef Ultrasound_compass_h
-#define Ultrasound_compass_h
-
-#ifndef ARDUINO
-#include <stdint.h>
-#elif ARDUINO >= 100
-#include "Arduino.h"
-#include "Print.h"
-#else
-#include "WProgram.h"
-#endif
-
 
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
@@ -157,6 +145,7 @@ float heading(void)
   return headingDegrees;
 }
 
+/*
 void setup(){
     //Serial Port begin
   Serial.begin (9600);
@@ -171,3 +160,4 @@ void loop(void){
   
 }
 
+ */

@@ -52,8 +52,8 @@ void backward(int speed) {
 }
 
 void left() {
-  new_heading = heading - 90 ;
-  while (heading > new_heading) {
+  float new_heading = heading() - 90 ;
+  while (heading() > new_heading) {
     myMotor_left->setSpeed(100);
     myMotor_left->run(FORWARD);
     myMotor_right->setSpeed(100);
@@ -62,8 +62,8 @@ void left() {
 }
 
 void right() {
-  new_heading = heading + 90 ;
-  while (heading < new_heading) {
+  float new_heading = heading() + 90 ;
+  while (heading() < new_heading) {
     myMotor_left->setSpeed(100);
     myMotor_left->run(BACKWARD);
     myMotor_right->setSpeed(100);
