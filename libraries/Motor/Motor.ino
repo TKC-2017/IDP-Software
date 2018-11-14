@@ -51,8 +51,8 @@ void backward(int speed) {
   myMotor_right->run(BACKWARD);
 }
 
-void left() {
-  float new_heading = heading() - 90 ;
+void left(int angle) {
+  float new_heading = heading() - angle ;
   while (heading() > new_heading) {
     myMotor_left->setSpeed(100);
     myMotor_left->run(FORWARD);
@@ -61,9 +61,9 @@ void left() {
   }
 }
 
-void right() {
-  float new_heading = heading() + 90 ;
-  while (heading() < new_heading) {
+void right(int angle) {
+  float new_heading = heading() - angle ;
+  while (heading() > new_heading) {
     myMotor_left->setSpeed(100);
     myMotor_left->run(BACKWARD);
     myMotor_right->setSpeed(100);
