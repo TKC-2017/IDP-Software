@@ -34,33 +34,45 @@ void loop() {
   // set initial distance to wall range
   float range = 20;
   
-  //while (not at end condition, robot not at centre) {
+  while (not at end condition, robot not at centre) {
   
-    //if ("mine_detetced" = 0) {
+    if int default_path = 0 {
     // follows default path
     // need to correct variable for mine detection
-      if (heading() < 160 && heading() > 200) {
+      
+      int spiral = 1
+      while (spiral < 8) {
+      // adjust max number of spirals needed
+      //while (heading() < 160 && heading() > 200) {
       // robot is not facing south, also if on default path
-        if (distance(1) > range) {
-          // sensor 1 or 0
-          forward(100); }
-        else {
-          stops();
-          left(90); 
-        }
-      }
-      else {
-      // robot is facing south
+
+        while (spiral % 4 != 0) {
+          if (distance(1) > range) {
+            // sensor 1 or 0
+            forward(100); }
+          else {
+            stops();
+            left(90);
+            spiral += 1
+            // adjust coordinates based on sensor positions on robot
+           }
+         }
+       
+      
+        // robot is facing south
         range += 25;
-         if (distance(1) > range) {
-           forward(100); }
-         else {
+        if (distance(1) > range) {
+          forward(100);
+        }
+        else {
            stops();        
            left(90); 
          }
       }
        
     }
+  }
+}
 
  /*
     else {
