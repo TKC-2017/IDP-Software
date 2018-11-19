@@ -1,4 +1,3 @@
-
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_HMC5883_U.h>
@@ -48,10 +47,10 @@ float distance(int sensor) {
   duration = pulseIn(echoPin, HIGH);
  
   // Convert the time into a distance
-  cm = (duration/2) / 291;     // Divide by 29.1 or multiply by 0.0343
+  cm = (duration/2) / 29.1;     // Divide by 29.1 or multiply by 0.0343
 
   // Print distance in cm
-  return Serial.print(cm);
+  return cm;
   
   
   //Serial.print("cm");
@@ -64,13 +63,14 @@ void loop(){
   Serial.print(distance(0));
   Serial.println();
   delay(1000);
-  Serial.print(distance(1));
+  /*Serial.print(distance(1));
   Serial.print("\n");
   
   Serial.println();
-  
-}
+}  
 */
+
+
 
 void displaySensorDetails(void)
 {
@@ -144,20 +144,21 @@ float heading(void)
 
   return headingDegrees;
 }
-
 /*
 void setup(){
     //Serial Port begin
   Serial.begin (9600);
-  setup_compass();
+  //setup_compass();
   setup_ultrasound();
 
 }
 
+
 void loop(void){
   delay(500);
   Serial.println(heading());
+  Serial.print(distance(0));
   
 }
 
- */
+*/

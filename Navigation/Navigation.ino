@@ -1,29 +1,10 @@
 #include <Ultrasound_compass.h>
 #include <Motor.h>
 
-/*
-// motor set up
-// can remove this - need to find out how to import functions from other files using include
-#include <Wire.h>
-#include <Adafruit_MotorShield.h>
-#include "utility/Adafruit_MS_PWMServoDriver.h"
-Adafruit_MotorShield AFMS = Adafruit_MotorShield(); 
-Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMotor(2), 
-*myMotor_front1 = AFMS.getMotor(3), *myMotor_front2 = AFMS.getMotor(4);
-
-// compass set up
-// same as above - remove this once figured out how to import functions from other files
-#include <Adafruit_LSM303.h>
-#include <Adafruit_LSM303_U.h>
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-
-*/
-
 
 void setup() {
   // put your setup code here, to run once:
-
+  AFMS.begin();
 }
 
 
@@ -33,6 +14,7 @@ void loop() {
   
   // set initial distance to wall range
   float range = 20;
+  float arena_length = 350;
   
   while (not at end condition, robot not at centre) {
   
@@ -47,7 +29,7 @@ void loop() {
       // robot is not facing south, also if on default path
 
         while (spiral % 4 != 0) {
-          if (distance(1) > range) {
+          if (arena_length - distance(0) > range) {
             // sensor 1 or 0
             forward(100); }
           else {
@@ -61,7 +43,7 @@ void loop() {
       
         // robot is facing south
         range += 25;
-        if (distance(1) > range) {
+        if (arena_length - distance(0) > range) {
           forward(100);
         }
         else {
