@@ -16,17 +16,17 @@ void setup() {
 
 
 void loop() {
-  /*
+  
   collector();
   // set initial distance to wall range
   double range = 20;
   
   int spiral = 1;
-  while (spiral < 9) {
+  while (spiral < 12) {
 
     while (spiral % 4 != 0) {
       
-      while (distance(0) > range) {
+      while (distance(0) > (240-range) ) {
         // sensor 1 or 0
         forward(200); 
        
@@ -42,7 +42,7 @@ void loop() {
     // once spiral is a multiple of 4, break loop, increase range for next inner loop of spiral
     range += 25;
       
-    while (distance(0) > range) {
+    while (distance(0) > (240-range) ) {
       forward(200);
     }
     // when sensor close to wall, break loop, turn, repeat loop from top
