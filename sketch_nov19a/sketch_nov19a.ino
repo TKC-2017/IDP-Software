@@ -118,8 +118,8 @@ void right_wo_compass() {
 
 /////////////////////
 
-const int trigPin = 8;
-const int echoPin = 9;
+const int trigPin = 6;
+const int echoPin = 7;
 // defines variables
 long duration;
 int distance;
@@ -128,7 +128,7 @@ void setup() {
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
   Serial.begin(9600); // Starts the serial communication
-  forward(100);
+  backward(100);
   collector();
 }
 void loop() {
@@ -149,15 +149,16 @@ void loop() {
   Serial.println(distance);
   delay(100);
 
-  if (distance > (240-20)) {
+  if (distance > (240-50)) {
     right_wo_compass();
+    //delay(3000);
   }
   else {
-    forward(666);
+    backward(100);
   }
 
 
-  // read the input on analog pin 0:
+  /*// read the input on analog pin 0:
   int sensorValue0 = analogRead(A8);
   // print out the value you read:
   Serial.print("LDR0: ");
@@ -173,6 +174,6 @@ void loop() {
   Serial.print("LDR2: ");
   Serial.println(sensorValue2);
   delay(500);        // delay in between reads for stability
-
+  */
 
 }
