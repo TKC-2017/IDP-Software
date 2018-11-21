@@ -10,8 +10,8 @@ Adafruit_HMC5883_Unified mag = Adafruit_HMC5883_Unified(12345);
 
 
  
-int trigPins[] = {9,11};    // Trigger
-int echoPins[] = {8,10};    // Echo
+int trigPins[] = {13,11};    // Trigger
+int echoPins[] = {12,10};    // Echo
 
 
 long duration, cm;
@@ -144,8 +144,8 @@ float heading(void)
 
   return headingDegrees;
 }
-/*
-void setup(){
+
+void setup_us(){
     //Serial Port begin
   Serial.begin (9600);
   //setup_compass();
@@ -153,12 +153,10 @@ void setup(){
 
 }
 
-
+/*
 void loop(void){
   delay(500);
-  Serial.println(heading());
+  //Serial.println(heading());
   Serial.print(distance(0));
-  
-}
+  */
 
-*/

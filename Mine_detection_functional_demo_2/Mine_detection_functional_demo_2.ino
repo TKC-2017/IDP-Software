@@ -4,13 +4,20 @@
 //#include <vector>
 //using namespace std;
 
+void setup() {
+
+  setup_m();
+  setup_us();
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+}
 
 // functions which return colour under each LDR 
 
-void LDR0() {
+int LDR0() {
   int LDR0 = analogRead(A8);
-  while (LDR0 > 'black' ) {
-    return 'black';
+  while (LDR0 > 300 ) {
+    return 0;
   }
   if (LDR0 < 300) {
     stops();
@@ -18,8 +25,9 @@ void LDR0() {
     int readings[5];
     int min_reading = readings[0];
     //obtain min value to identify colour accurately 
-    for (int t = 0; t < 5; t = t + 1) {
-      forward(50);
+    for (int t = 0; t < 10; t = t + 1) {
+      forward(10);
+      delay(400);
       readings[t] = LDR0;
       if (readings[t] < min_reading) {
         min_reading = readings[t];
@@ -31,24 +39,24 @@ void LDR0() {
     
     // return colour based on min reading
     if (min_reading < 300 && min_reading > 150) {
-      return 'red';
+      return 1;
     }
     if (min_reading < 150) {
-      return 'yellow';
+      return 2;
     }
     else {
-      return 'uncertain';
+      return 3;
     }
   }
 }
 
     
-void LDR1() {
+int LDR1() {
   int LDR1 = analogRead(A9);
   while (LDR1 > 150 ) {
-    return 'black';
+    return 0;
   }
-  if (LDR1 < 'black') {
+  if (LDR1 < 150) {
     stops();
     delay(1000);
     int readings[5];
@@ -67,24 +75,24 @@ void LDR1() {
     
     // return colour based on min reading
     if (min_reading < 150 && min_reading > 80) {
-      return 'red';
+      return 1;
     }
     if (min_reading < 80) {
-      return 'yellow';
+      return 2;
     }
     else {
-      return 'uncertain';
+      return 3;
     }
   }
 }    
 
 
-void LDR2() {
+int LDR2() {
   int LDR2 = analogRead(A10);
   while (LDR2 > 200 ) {
-    return 'black';
+    return 0;
   }
-  if (LDR2 < 'black') {
+  if (LDR2 < 200) {
     stops();
     delay(1000);
     int readings[5];
@@ -103,37 +111,64 @@ void LDR2() {
     
     // return colour based on min reading
     if (min_reading < 200 && min_reading > 100) {
-      return 'red';
+      return 1;
     }
     if (min_reading < 100) {
-      return 'yellow';
+      return 2;
     }
     else {
-      return 'uncertain';
+      return 3;
     }
   }
 } 
 
    
 void loop() {
-  while (LDR0() == 'black' && LDR1() == 'black' && LDR2 == 'black') {
-    forward(100);
-  }
   stops();
-  Serial.print("LDR0: ")
-  Serial.print(LDR0())
-  Serial.println()
-  Serial.print("LDR1: ")
-  Serial.print(LDR1())
-  Serial.println()
-  Serial.print("LDR2: ")
-  Serial.print(LDR2())
-  Serial.println()
-  
-    
-   }
+  delay(100000000);
+ 
+  while (LDR0() == 0) {
+  //&& (LDR1() == 0)) && LDR2 == 0) {
+    forward(100);
+    digitalWrite(2, LOW);
+    digitalWrite(3, LOW);
   }
-}
+  int a = LDR0();
+  int b = 0;
+  int c = 0;
+  
+  
+  stops();
+  Serial.println();
+  Serial.print("0 = black, 1 = red, 2 = yellow, 3 = uncertain");
+  Serial.println();
+  Serial.print("LDR0: ");
+  Serial.print(a);
+  Serial.println();
+  /*
+  Serial.print("LDR1: ");
+  Serial.print(b);
+  Serial.println();
+  Serial.print("LDR2: ");
+  Serial.print(c);
+  Serial.println();
+  */
+  //int ldrs[3]={LDR0 , LDR1, LDR2};
+  if (max(max(a, b), c) == 2) {
+    digitalWrite(2, HIGH);
+    Serial.println("yellow LED");
+  }
+  if (max(max(a, b), c) == 1) {
+    digitalWrite(3, HIGH);
+    Serial.println("red LED");
+  }
+  delay(1000);
+  
+
+  
+   
+ }
+ 
 
 
 

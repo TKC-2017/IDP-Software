@@ -2,11 +2,11 @@
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_MS_PWMServoDriver.h"
 Adafruit_MotorShield AFMS = Adafruit_MotorShield(); 
-Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMotor(2), 
+Adafruit_DCMotor *myMotor_left = AFMS.getMotor(2), *myMotor_right = AFMS.getMotor(1), 
 *myMotor_front1 = AFMS.getMotor(3), *myMotor_front2 = AFMS.getMotor(4);
 
 
-void setup() {
+void setup_m() {
   // put your setup code here, to run once:
 
   AFMS.begin();
@@ -25,27 +25,27 @@ void setup() {
 */
 }
 
-/*
+
 //MOTOR TEST
 
 void loop() { 
   collector();
-  forward(0);
+  forward(00);
   delay(1000);
   stops();
   delay(1000);
 }
 
-*/
 
-void forward(int speed) {
+
+void backward(int speed) {
   myMotor_left->setSpeed(speed);
   myMotor_left->run(FORWARD);
   myMotor_right->setSpeed(speed);
   myMotor_right->run(FORWARD);
 }
 
-void backward(int speed) {
+void forward(int speed) {
   myMotor_left->setSpeed(speed);
   myMotor_left->run(BACKWARD);
   myMotor_right->setSpeed(speed);
@@ -89,7 +89,7 @@ void collector() {
   
 }
 
-void left_wo_compass() {
+void right_wo_compass() {
     myMotor_left->setSpeed(100);
     myMotor_left->run(FORWARD);
     myMotor_right->setSpeed(100);
@@ -99,7 +99,7 @@ void left_wo_compass() {
 
 }
 
-void right_wo_compass() {
+void left_wo_compass() {
     myMotor_left->setSpeed(100);
     myMotor_left->run(BACKWARD);
     myMotor_right->setSpeed(100);

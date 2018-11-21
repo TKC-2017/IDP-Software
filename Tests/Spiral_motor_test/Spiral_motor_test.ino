@@ -3,13 +3,10 @@
 
 
 void setup() {
-  // put your setup code here, to run once:
- 
-  AFMS.begin();
   
-  //Serial Port begin
-  Serial.begin (9600);
-  setup_ultrasound();
+  setup_us();
+  setup_m();
+  
 
 
 }
@@ -17,18 +14,21 @@ void setup() {
 
 void loop() {
   
-  collector();
+  stops();
+  /*
+  delay(000000);
+  //collector();
   // set initial distance to wall range
-  double range = 20;
+  int range = 20;
   
   int spiral = 1;
-  while (spiral < 12) {
-
+  while (spiral < 9) {
+  Serial.print(distance(0));
     while (spiral % 4 != 0) {
       
-      while (distance(0) > (240-range) ) {
+      while (180-distance(0) > range ) {
         // sensor 1 or 0
-        forward(200); 
+        forward(100); 
        
       }
       
@@ -42,8 +42,8 @@ void loop() {
     // once spiral is a multiple of 4, break loop, increase range for next inner loop of spiral
     range += 25;
       
-    while (distance(0) > (240-range) ) {
-      forward(200);
+    while (180-distance(0) > range ) {
+      forward(100);
     }
     // when sensor close to wall, break loop, turn, repeat loop from top
     stops();

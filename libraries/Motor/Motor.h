@@ -6,7 +6,7 @@ Adafruit_DCMotor *myMotor_left = AFMS.getMotor(1), *myMotor_right = AFMS.getMoto
 *myMotor_front1 = AFMS.getMotor(3), *myMotor_front2 = AFMS.getMotor(4);
 
 
-void setup() {
+void setup_m() {
   // put your setup code here, to run once:
 
 AFMS.begin();
