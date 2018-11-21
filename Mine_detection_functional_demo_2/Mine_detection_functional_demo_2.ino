@@ -22,7 +22,7 @@ int LDR0() {
   if (LDR0 < 300) {
     stops();
     delay(1000);
-    int readings[5];
+    int readings[10];
     int min_reading = readings[0];
     //obtain min value to identify colour accurately 
     for (int t = 0; t < 10; t = t + 1) {
@@ -59,12 +59,12 @@ int LDR1() {
   if (LDR1 < 150) {
     stops();
     delay(1000);
-    int readings[5];
+    int readings[10];
     int min_reading = readings[0];
     //obtain min value to identify colour accurately 
-    for (int t = 0; t < 5; t = t + 1) {
+    for (int t = 0; t < 10; t = t + 1) {
       forward(50);
-      readings[t] = LDR0;
+      readings[t] = LDR1;
       if (readings[t] < min_reading) {
         min_reading = readings[t];
       }
@@ -95,12 +95,12 @@ int LDR2() {
   if (LDR2 < 200) {
     stops();
     delay(1000);
-    int readings[5];
+    int readings[10];
     int min_reading = readings[0];
     //obtain min value to identify colour accurately 
-    for (int t = 0; t < 5; t = t + 1) {
+    for (int t = 0; t < 10; t = t + 1) {
       forward(50);
-      readings[t] = LDR0;
+      readings[t] = LDR2;
       if (readings[t] < min_reading) {
         min_reading = readings[t];
       }
@@ -134,8 +134,8 @@ void loop() {
     digitalWrite(3, LOW);
   }
   int a = LDR0();
-  int b = 0;
-  int c = 0;
+  int b = 0; // LDR1()
+  int c = 0; // LDR2()
   
   
   stops();
