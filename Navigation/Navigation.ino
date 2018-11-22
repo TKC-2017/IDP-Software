@@ -18,23 +18,19 @@ void loop() {
   // set initial distance to wall range
   float range = 20;
   float arena_length = 180;
-  int going == 1;
+  int going = 1;
+  int spiral = 1;
   
-  while (going == 1) {
-  
-    //if (detect() == 0) {
-    // follows default path
-    // need to correct variable for mine detection
-      
-      int spiral = 1
-      while (spiral < 8) {
-      // adjust max number of spirals needed
-      //while (heading() < 160 && heading() > 200) {
-      // robot is not facing south, also if on default path
+  while (spiral < 8) {
+    // adjust max number of spirals needed
+    //while (heading() < 160 && heading() > 200) {
+    // robot is not facing south, also if on default path
 
+      while (going == 1) {
+      
       while (detect() == 0) {
         //while no mines have been detected
-        int go = 0
+        int go = 0;
         // reset go to 0, cancel override
         while (spiral % 4 != 0) {
           while (arena_length - distance(0) > range) {
@@ -45,7 +41,7 @@ void loop() {
           stops();
           left_wo_compass();
           //left(90);
-          spiral += 1
+          spiral += 1;
           // adjust coordinates based on sensor positions on robot
         }
         
@@ -60,13 +56,13 @@ void loop() {
         spiral += 1;
       }
       
-      // when detect return list of numbers based on colours of mines detected
-      if (max(max(detected[0], detected[1]), detected[2]) == 1) {
+      // when detect returns list of numbers based on colours of mines detected
+      if (max(max(detect[0], detect[1]), detect[2]) == 1) {
         // if max reading is yellow mine
         // might need to add mine count
-        forwards(100);
+        forward(100);
       }
-      if (max(max(detected[0], detected[1]), detected[2]) == 2) {
+      if (max(max(detect[0], detect[1]), detect[2]) == 2) {
         // if max reading is red mine
         // need to add checking for coords of other mines
         // int go = 1
@@ -83,7 +79,7 @@ void loop() {
         delay(3000);
         stops();
         left_wo_compass();
-        forward();
+        forward(100);
         delay(1000);
         stops();
         right_wo_compass();
