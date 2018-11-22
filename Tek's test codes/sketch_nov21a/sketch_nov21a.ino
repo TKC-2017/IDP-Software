@@ -24,53 +24,8 @@ void LDR() {
       }
     }
   }
-  // repeat for colour1 and colour2
-  if (LDR1 > 150) {
-    colour1 = "black";
-  }
-  else {
-    if (LDR1 < 150 && LDR1 > 80) {
-      colour1 = "red";
-    }
-    else {
-      if (LDR1 < 80) {
-        colour1 = "yellow";
-      }
-      else {
-        colour1 = "uncertain";
-      }
-    }
-  }
-
   
-  if (LDR2 > 200) {
-    colour2 = "black";
-  }
-  else {
-    if (LDR2 < 200 && LDR0 > 100 ) {
-      colour2 = "red";
-    }
-    else {
-      if (LDR2 < 100) {
-        colour2 = "yellow";
-      }
-      else {
-        colour2 = "uncertain";
-      }
-    }
-  }
-  
-  //LDR_list.push_back(colour0);
-  //LDR_list.push_back(colour1);
-  //LDR_list.push_back(colour2);
-
-  LDR_list[0] = colour0;
-  LDR_list[1] = colour1;
-  LDR_list[2] = colour2;
-  
-  // returns list of colours e.g. [black, red, black]
-  // (then need to determine location of mines based on if neighbouring LDRs return same colour)
-  return LDR_list;
+  return colour0;
   }
 
 }
@@ -84,17 +39,17 @@ void setup() {
 
 void loop() {
   
-  LDR();
+  LDR0 = LDR()
   delay(100);
   
   //for(int i=0; i<5; ++i){
-  if (LDR_results[0] == "red") {
+  if (LDR0 == "red") {
   stops();
   ++count0;
   forward(10);
   }
 
-  if (LDR_results[0] == "yellow") {
+  if (LDR0 == "yellow") {
   stops();
   --count0;
   forward(10);
