@@ -1,14 +1,12 @@
-void setup() {
-  // put your setup code here, to run once:
+#include <Ultrasound_compass.h>
 
-}
 
-void robot_position(int spiral) {
+int robot_position(int spiral)[2] {
   // coordinate of robot
 
   // position of robot
   float arena_length, arena_width,x, y;
-  vector<float> coord
+  int coord[2];
   arena_width = 200;
   arena_length = 200;
 
@@ -23,7 +21,7 @@ void robot_position(int spiral) {
   }
   
   else if (spiral % 4 == 2) {
-    facing north 
+    //facing north 
     x = arena_length - distance(1);
     y = distance(0);
   }
@@ -40,15 +38,10 @@ void robot_position(int spiral) {
     y = arena_width - distance(0);
   }
 
-  coord.push_back(x);
-  coord.push_back(y);
+  coord[0] = x;
+  coord[1] = y;
   
-  return coord
+  return coord;
   
-
-
-  
-
-
  
 }

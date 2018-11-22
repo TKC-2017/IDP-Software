@@ -1,5 +1,6 @@
-#include <Ultrasound_compass.h>
-#include <Motor.h>
+//#include <Coordinate.h>
+//#include <Ultrasound_compass.h>
+//#include <Motor.h>
 #include <Mine_detect.h>
 
 void setup() {
@@ -20,6 +21,7 @@ void loop() {
   float arena_length = 180;
   int going = 1;
   int spiral = 1;
+  //int redmines[] = {};
   
   while (spiral < 8) {
     // adjust max number of spirals needed
@@ -65,8 +67,11 @@ void loop() {
       if (max(max(detect[0], detect[1]), detect[2]) == 2) {
         // if max reading is red mine
         // need to add checking for coords of other mines
-        // int go = 1
-        // set go = 1 to override mine detection to prevent robot getting stuck in loop when reversing over mine
+        
+        // getting robot coordinate to calculate mine coordinate, need to +- a bit 
+        //int mine_coord[2] = robot_position(spiral)[2];
+        //redmines.push_back(mine_coord);
+        
         backward(100);
         delay(1000);
         // either use delays or range sensors to get back on default path
