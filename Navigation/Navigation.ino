@@ -1,24 +1,28 @@
 #include <Ultrasound_compass.h>
 #include <Motor.h>
-
+#include <Mine_detect.h>
 
 void setup() {
   // put your setup code here, to run once:
-  AFMS.begin();
+  setup_m();
+  setup_us();
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  
 }
 
 
 
 void loop() {
-  // put your main code here, to run repeatedly:
   
   // set initial distance to wall range
   float range = 20;
-  float arena_length = 350;
+  float arena_length = 180;
+  int going == 1;
   
-  while (not at end condition, robot not at centre) {
+  while (going == 1) {
   
-    if int default_path = 0 {
+    //if (detect() == 0) {
     // follows default path
     // need to correct variable for mine detection
       
@@ -28,30 +32,62 @@ void loop() {
       //while (heading() < 160 && heading() > 200) {
       // robot is not facing south, also if on default path
 
+      while (detect() == 0) {
+        //while no mines have been detected
+        int go = 0
+        // reset go to 0, cancel override
         while (spiral % 4 != 0) {
-          if (arena_length - distance(0) > range) {
+          while (arena_length - distance(0) > range) {
             // sensor 1 or 0
-            forward(100); }
-          else {
-            stops();
-            left(90);
-            spiral += 1
-            // adjust coordinates based on sensor positions on robot
-           }
-         }
-       
-      
-        // robot is facing south
+            forward(100);
+          }
+          // when close to wall, stops, turns
+          stops();
+          left_wo_compass();
+          //left(90);
+          spiral += 1
+          // adjust coordinates based on sensor positions on robot
+        }
+        
+        // once spiral is a multiple of 4, break loop, increase range for next inner loop of spiral
         range += 25;
-        if (arena_length - distance(0) > range) {
+        while (arena_length - distance(0) > range) {
           forward(100);
         }
-        else {
-           stops();        
-           left(90); 
-         }
+        stops();        
+        //left(90); 
+        left_wo_compass();
+        spiral += 1;
       }
-       
+      
+      // when detect return list of numbers based on colours of mines detected
+      if (max(max(detected[0], detected[1]), detected[2]) == 1) {
+        // if max reading is yellow mine
+        // might need to add mine count
+        forwards(100);
+      }
+      if (max(max(detected[0], detected[1]), detected[2]) == 2) {
+        // if max reading is red mine
+        // need to add checking for coords of other mines
+        // int go = 1
+        // set go = 1 to override mine detection to prevent robot getting stuck in loop when reversing over mine
+        backward(100);
+        delay(1000);
+        // either use delays or range sensors to get back on default path
+        right_wo_compass();
+        forward(100);
+        delay(1000);
+        stops();
+        left_wo_compass();
+        forward(100);
+        delay(3000);
+        stops();
+        left_wo_compass();
+        forward();
+        delay(1000);
+        stops();
+        right_wo_compass();
+      }   
     }
   }
 }
