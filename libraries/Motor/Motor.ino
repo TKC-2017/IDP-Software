@@ -7,25 +7,10 @@ Adafruit_DCMotor *myMotor_left = AFMS.getMotor(2), *myMotor_right = AFMS.getMoto
 
 
 void setup_m() {
-  // put your setup code here, to run once:
-
   AFMS.begin();
-
-/*
-  // front motors running continuosly
-  myMotor_front1->setSpeed(100);
-  myMotor_front1->run(FORWARD);
-  myMotor_front2->setSpeed(100);
-  myMotor_front2->run(FORWARD);
-
-  myMotor_left->setSpeed(100);
-  myMotor_left->run(FORWARD);
-  myMotor_right->setSpeed(100);
-  myMotor_right->run(FORWARD);
-*/
 }
 
-
+/*
 //MOTOR TEST
 
 void loop() { 
@@ -35,7 +20,7 @@ void loop() {
   stops();
   delay(1000);
 }
-
+*/
 
 
 void backward(int speed) {
@@ -54,6 +39,7 @@ void forward(int speed) {
 
 /*
 void left(int angle) {
+  // using compass to turn
   float new_heading = heading() - angle ;
   while (heading() > new_heading) {
     myMotor_left->setSpeed(100);
@@ -64,6 +50,7 @@ void left(int angle) {
 }
 
 void right(int angle) {
+  // using compass to turn
   float new_heading = heading() - angle ;
   while (heading() > new_heading) {
     myMotor_left->setSpeed(100);
@@ -85,26 +72,44 @@ void collector() {
   myMotor_front1->setSpeed(100);
   myMotor_front1->run(FORWARD);
   myMotor_front2->setSpeed(100);
-  myMotor_front2->run(FORWARD);
-  
+  myMotor_front2->run(FORWARD);  
 }
 
 void right_wo_compass() {
-    myMotor_left->setSpeed(100);
-    myMotor_left->run(FORWARD);
-    myMotor_right->setSpeed(100);
-    myMotor_right->run(BACKWARD);
-    delay(2400);
-    stops();
-
+  myMotor_left->setSpeed(100);
+  myMotor_left->run(FORWARD); 
+  myMotor_right->setSpeed(100);
+  myMotor_right->run(BACKWARD);
+  delay(2400);
+  stops();
 }
 
 void left_wo_compass() {
-    myMotor_left->setSpeed(100);
-    myMotor_left->run(BACKWARD);
-    myMotor_right->setSpeed(100);
-    myMotor_right->run(FORWARD);
-    delay(2400);
-    stops();
+  myMotor_left->setSpeed(100);
+  myMotor_left->run(BACKWARD);
+  myMotor_right->setSpeed(100);
+  myMotor_right->run(FORWARD);
+  delay(2400);
+  stops();
+}
 
+void avoid(int faraway) {
+  // avoidance route, with delay = faraway to determine how far from mine to go
+  backward(100);
+  delay(1000);
+  stops();
+  // either use delays or range sensors to get back on default path
+  right_wo_compass();
+  forward(100);
+  delay(faraway);
+  stops();
+  left_wo_compass();
+  forward(100);
+  delay(3000);
+  stops();
+  left_wo_compass();
+  forward(100);
+  delay(faraway);
+  stops();
+  right_wo_compass();
 }

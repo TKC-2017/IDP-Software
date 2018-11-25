@@ -17,27 +17,37 @@ void setup() {
 void loop() {
   
   // set initial distance to wall range
+  // put this is setup? and then get rid of while (going == 1)
   float range = 20;
   float arena_length = 180;
   int going = 1;
   int spiral = 1;
   //int redmines[] = {};
   
-  while (spiral < 8) {
-    // adjust max number of spirals needed
-    //while (heading() < 160 && heading() > 200) {
-    // robot is not facing south, also if on default path
+  while (going == 1) {
+    
+    //while (heading() < 160 && heading() > 200) { //robot is not facing south
 
-      while (going == 1) {
+    while (spiral < 8) {
+    // adjust max number of spirals
       
-      while (detect() == 0) {
-        //while no mines have been detected
+      //while (detect() == 0) {
+        //while no mines have been detected !!this might not work, instead used if detect == 2 later (see below)
         int go = 0;
         // reset go to 0, cancel override
         while (spiral % 4 != 0) {
           while (arena_length - distance(0) > range) {
             // sensor 1 or 0
             forward(100);
+            /*
+            if (detect() == 2) {
+              //mine_coord = robot_position(spiral) +- a bit, depending on LDRs triggered
+              //redmines.push_back(mine_coord);
+              avoid(3000); // avoidance route, moves away from mine for 3000 ms
+              // need to check for red mines in area to the right, then adjust the distance at which
+              // the robot will move to avoid the current mine
+            }
+             */
           }
           // when close to wall, stops, turns
           stops();
@@ -51,47 +61,23 @@ void loop() {
         range += 25;
         while (arena_length - distance(0) > range) {
           forward(100);
+          /*
+          if (detect() == 2) {
+            //mine_coord = robot_position(spiral) +- a bit, depending on LDRs triggered
+            //redmines.push_back(mine_coord);
+            avoid(3000);
+          }
+            */
         }
         stops();        
         //left(90); 
         left_wo_compass();
         spiral += 1;
       }
-      
-      // when detect returns list of numbers based on colours of mines detected
-      if (max(max(detect[0], detect[1]), detect[2]) == 1) {
-        // if max reading is yellow mine
-        // might need to add mine count
-        forward(100);
-      }
-      if (max(max(detect[0], detect[1]), detect[2]) == 2) {
-        // if max reading is red mine
-        // need to add checking for coords of other mines
-        
-        // getting robot coordinate to calculate mine coordinate, need to +- a bit 
-        //int mine_coord[2] = robot_position(spiral)[2];
-        //redmines.push_back(mine_coord);
-        
-        backward(100);
-        delay(1000);
-        // either use delays or range sensors to get back on default path
-        right_wo_compass();
-        forward(100);
-        delay(1000);
-        stops();
-        left_wo_compass();
-        forward(100);
-        delay(3000);
-        stops();
-        left_wo_compass();
-        forward(100);
-        delay(1000);
-        stops();
-        right_wo_compass();
-      }   
     }
-  }
+  //}
 }
+
 
  /*
     else {
