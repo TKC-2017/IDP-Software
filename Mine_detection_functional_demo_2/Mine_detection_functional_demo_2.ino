@@ -21,11 +21,11 @@ int LDR0() {
   }
   if (LDR0 < 300) {
     stops();
-    delay(1000);
-    int readings[10];
-    int min_reading = readings[0];
+    delay(3000);
+    int readings[5];
+    int min_reading = LDR0;
     //obtain min value to identify colour accurately 
-    for (int t = 0; t < 10; t = t + 1) {
+    for (int t = 1; t < 5; t = t + 1) {
       forward(10);
       delay(400);
       readings[t] = LDR0;
@@ -39,10 +39,10 @@ int LDR0() {
     
     // return colour based on min reading
     if (min_reading < 300 && min_reading > 150) {
-      return 1;
+      return 2;
     }
     if (min_reading < 150) {
-      return 2;
+      return 1;
     }
     else {
       return 3;
@@ -58,12 +58,13 @@ int LDR1() {
   }
   if (LDR1 < 150) {
     stops();
-    delay(1000);
-    int readings[10];
-    int min_reading = readings[0];
+    delay(3000);
+    int readings[5];
+    int min_reading = LDR1;
     //obtain min value to identify colour accurately 
-    for (int t = 0; t < 10; t = t + 1) {
-      forward(50);
+    for (int t = 1; t < 5; t = t + 1) {
+      forward(10);
+      delay(400);
       readings[t] = LDR1;
       if (readings[t] < min_reading) {
         min_reading = readings[t];
@@ -75,10 +76,10 @@ int LDR1() {
     
     // return colour based on min reading
     if (min_reading < 150 && min_reading > 80) {
-      return 1;
+      return 2;
     }
     if (min_reading < 80) {
-      return 2;
+      return 1;
     }
     else {
       return 3;
@@ -94,12 +95,13 @@ int LDR2() {
   }
   if (LDR2 < 200) {
     stops();
-    delay(1000);
+    delay(3000);
     int readings[10];
-    int min_reading = readings[0];
+    int min_reading = LDR2;
     //obtain min value to identify colour accurately 
-    for (int t = 0; t < 10; t = t + 1) {
-      forward(50);
+    for (int t = 1; t < 10; t = t + 1) {
+      forward(10);
+      delay(400);
       readings[t] = LDR2;
       if (readings[t] < min_reading) {
         min_reading = readings[t];
@@ -111,10 +113,10 @@ int LDR2() {
     
     // return colour based on min reading
     if (min_reading < 200 && min_reading > 100) {
-      return 1;
+      return 2;
     }
     if (min_reading < 100) {
-      return 2;
+      return 1;
     }
     else {
       return 3;
@@ -122,25 +124,138 @@ int LDR2() {
   }
 } 
 
+
+
+int LDR3() {
+  // when mine detected, stops, forwards in small steps, stops, returns number based on colour
+  
+  int LDR3 = analogRead(A11);
+  while (LDR3 > 250 ) {
+    return 0;
+  }
+  if (LDR3 < 250) {
+    stops();
+    delay(3000);
+    int readings[5];
+    int min_reading = LDR3;
+    //obtain min value to identify colour accurately 
+    for (int t = 1; t < 5; t = t + 1) {
+      forward(10);
+      delay(400);
+      readings[t] = LDR3;
+      if (readings[t] < min_reading) {
+        min_reading = readings[t];
+      }
+    }
+    stops();
+    
+    // return colour based on min reading
+    if (min_reading < 250 && min_reading > 150) {
+      return 2; //red
+    }
+    if (min_reading < 150) {
+      return 1; //yellow
+    }
+    else {
+      return 3; //uncertain
+    }
+  }
+}
+
+
+int LDR4() {
+  // when mine detected, stops, forwards in small steps, stops, returns number based on colour
+  
+  int LDR4 = analogRead(A12);
+  while (LDR4 > 250 ) {
+    return 0;
+  }
+  if (LDR4 < 250) {
+    stops();
+    delay(3000);
+    int readings[5];
+    int min_reading = LDR4;
+    //obtain min value to identify colour accurately 
+    for (int t = 1; t < 5; t = t + 1) {
+      forward(10);
+      delay(400);
+      readings[t] = LDR4;
+      if (readings[t] < min_reading) {
+        min_reading = readings[t];
+      }
+    }
+    stops();
+    
+    // return colour based on min reading
+    if (min_reading < 250 && min_reading > 150) {
+      return 2; //red
+    }
+    if (min_reading < 150) {
+      return 1; //yellow
+    }
+    else {
+      return 3; //uncertain
+    }
+  }
+}
+
+
+int LDR5() {
+  // when mine detected, stops, forwards in small steps, stops, returns number based on colour
+  
+  int LDR5 = analogRead(A13);
+  while (LDR5 > 200 ) {
+    return 0;
+  }
+  if (LDR5 < 200) {
+    stops();
+    delay(3000);
+    int readings[5];
+    int min_reading = LDR5;
+    //obtain min value to identify colour accurately 
+    for (int t = 1; t < 5; t = t + 1) {
+      forward(10);
+      delay(400);
+      readings[t] = LDR5;
+      if (readings[t] < min_reading) {
+        min_reading = readings[t];
+      }
+    }
+    stops();
+    
+    // return colour based on min reading
+    if (min_reading < 200 && min_reading > 150) {
+      return 2; //red
+    }
+    if (min_reading < 150) {
+      return 1; //yellow
+    }
+    else {
+      return 3; //uncertain
+    }
+  }
+}
+
    
 void loop() {
   stops();
-  delay(100000000);
+  
+  delay(10000000000);
  
-  while (LDR0() == 0) {
+  while (LDR3() == 0) {
   //&& (LDR1() == 0)) && LDR2 == 0) {
     forward(100);
     digitalWrite(2, LOW);
     digitalWrite(3, LOW);
   }
-  int a = LDR0();
+  int a = LDR3();
   int b = 0; // LDR1()
   int c = 0; // LDR2()
   
   
   stops();
   Serial.println();
-  Serial.print("0 = black, 1 = red, 2 = yellow, 3 = uncertain");
+  Serial.print("0 = black, 2 = red, 1 = yellow, 3 = uncertain");
   Serial.println();
   Serial.print("LDR0: ");
   Serial.print(a);
@@ -154,11 +269,11 @@ void loop() {
   Serial.println();
   */
   //int ldrs[3]={LDR0 , LDR1, LDR2};
-  if (max(max(a, b), c) == 2) {
+  if (max(max(a, b), c) == 1) {
     digitalWrite(2, HIGH);
     Serial.println("yellow LED");
   }
-  if (max(max(a, b), c) == 1) {
+  if (max(max(a, b), c) == 2) {
     digitalWrite(3, HIGH);
     Serial.println("red LED");
   }
