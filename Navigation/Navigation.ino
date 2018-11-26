@@ -1,60 +1,83 @@
-#include <Ultrasound_compass.h>
-#include <Motor.h>
-
+//#include <Coordinate.h>
+//#include <Ultrasound_compass.h>
+//#include <Motor.h>
+#include <Mine_detect.h>
 
 void setup() {
   // put your setup code here, to run once:
-  AFMS.begin();
+  setup_m();
+  setup_us();
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  
 }
 
 
 
 void loop() {
-  // put your main code here, to run repeatedly:
   
   // set initial distance to wall range
+  // put this is setup? and then get rid of while (going == 1)
   float range = 20;
-  float arena_length = 350;
+  float arena_length = 180;
+  int going = 1;
+  int spiral = 1;
+  //int redmines[] = {};
   
-  while (not at end condition, robot not at centre) {
-  
-    if int default_path = 0 {
-    // follows default path
-    // need to correct variable for mine detection
-      
-      int spiral = 1
-      while (spiral < 8) {
-      // adjust max number of spirals needed
-      //while (heading() < 160 && heading() > 200) {
-      // robot is not facing south, also if on default path
+  while (going == 1) {
+    
+    //while (heading() < 160 && heading() > 200) { //robot is not facing south
 
-        while (spiral % 4 != 0) {
-          if (arena_length - distance(0) > range) {
-            // sensor 1 or 0
-            forward(100); }
-          else {
-            stops();
-            left(90);
-            spiral += 1
-            // adjust coordinates based on sensor positions on robot
-           }
-         }
-       
+    while (spiral < 8) {
+    // adjust max number of spirals
       
-        // robot is facing south
-        range += 25;
-        if (arena_length - distance(0) > range) {
-          forward(100);
+      //while (detect() == 0) {
+        //while no mines have been detected !!this might not work, instead used if detect == 2 later (see below)
+        int go = 0;
+        // reset go to 0, cancel override
+        while (spiral % 4 != 0) {
+          while (arena_length - distance(0) > range) {
+            // sensor 1 or 0
+            forward(100);
+            /*
+            if (detect() == 2) {
+              //mine_coord = robot_position(spiral) +- a bit, depending on LDRs triggered
+              //redmines.push_back(mine_coord);
+              avoid(3000); // avoidance route, moves away from mine for 3000 ms
+              // need to check for red mines in area to the right, then adjust the distance at which
+              // the robot will move to avoid the current mine
+            }
+             */
+          }
+          // when close to wall, stops, turns
+          stops();
+          left_wo_compass();
+          //left(90);
+          spiral += 1;
+          // adjust coordinates based on sensor positions on robot
         }
-        else {
-           stops();        
-           left(90); 
-         }
+        
+        // once spiral is a multiple of 4, break loop, increase range for next inner loop of spiral
+        range += 25;
+        while (arena_length - distance(0) > range) {
+          forward(100);
+          /*
+          if (detect() == 2) {
+            //mine_coord = robot_position(spiral) +- a bit, depending on LDRs triggered
+            //redmines.push_back(mine_coord);
+            avoid(3000);
+          }
+            */
+        }
+        stops();        
+        //left(90); 
+        left_wo_compass();
+        spiral += 1;
       }
-       
     }
-  }
+  //}
 }
+
 
  /*
     else {
