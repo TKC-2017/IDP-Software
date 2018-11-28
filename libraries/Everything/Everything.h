@@ -130,6 +130,17 @@ void avoid(int faraway) {
     right_wo_compass();
 }
 
+void avoid2(int faraway) {
+    backward(100);
+    delay(1500);
+    stops();
+    left_wo_compass();
+    forward(100);
+    delay(faraway);
+    stops();
+    right_wo_compass();  
+}
+
 
 
 // ULTRASOUND

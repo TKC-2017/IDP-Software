@@ -21,7 +21,7 @@ void loop() {
   delay(3000);
   // set initial distance to wall range
   // put this is setup? and then get rid of while (going == 1)
-  float range = 70;
+  float range = 75;
   float arena_length = 240;
   int spiral = 1;
   int redmines[100];
@@ -41,7 +41,7 @@ void loop() {
         collector();
     }
 
-    while (spiral < 8) {
+    while (spiral < 16) {
     // adjust max number of spirals
         
         
@@ -62,7 +62,12 @@ void loop() {
               Serial.print(mine_coord[1]);
               Serial.println();
               red_counter += 1;
-              avoid(3500); // avoidance route, moves away from mine for 3000 ms
+              if (distance(0) > 160) {
+                avoid2(3500);
+              }
+              else {
+                avoid(3500); // avoidance route, moves away from mine for 3000 ms
+              }
               // need to check for red mines in area to the right, then adjust the distance at which
               // the robot will move to avoid the current mine
             }
@@ -99,7 +104,12 @@ void loop() {
             Serial.print(mine_coord[1]);
             Serial.println();
             red_counter += 1;
-            avoid(3500); // avoidance route, moves away from mine for 3000 ms
+            if (distance(0) > 160) {
+                avoid2(3500);
+              }
+            else {
+              avoid(3500); // avoidance route, moves away from mine for 3000 ms
+            }
             // need to check for red mines in area to the right, then adjust the distance at which
             // the robot will move to avoid the current mine
           } 
