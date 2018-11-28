@@ -112,7 +112,7 @@ void left_wo_compass() {
 void avoid(int faraway) {
     // avoidance route, with delay = faraway (in ms) to determine how far from mine to go
     backward(100);
-    delay(1000);
+    delay(1500);
     stops();
     // either use delays or range sensors to get back on default path
     right_wo_compass();
@@ -121,13 +121,24 @@ void avoid(int faraway) {
     stops();
     left_wo_compass();
     forward(100);
-    delay(3000);
+    delay(5700);
     stops();
     left_wo_compass();
     forward(100);
     delay(faraway);
     stops();
     right_wo_compass();
+}
+
+void avoid2(int faraway) {
+    backward(100);
+    delay(1500);
+    stops();
+    left_wo_compass();
+    forward(100);
+    delay(faraway);
+    stops();
+    right_wo_compass();  
 }
 
 
@@ -305,10 +316,10 @@ int * robot_position(int spiral) {
     static int coord[2];
     int arena_length, arena_width, cw, cl, x, y;
     
-    arena_width = 200;
-    arena_length = 200;
-    cl = 30; // chassis length
-    cw = 15; // chassis half width
+    arena_width = 240;
+    arena_length = 240;
+    cl = 29; // chassis length
+    cw = 13; // chassis half width
     
     // spiral ranges from 1 to 8
     // swap 0 and 1 maybe, currently sensor 0 is set as back sensor, 1 as right sensor
@@ -364,17 +375,19 @@ int LDR0() {
     // when mine detected, stops, forwards in small steps, stops, returns number based on colour
     
     int LDR0 = analogRead(A8);
-    while (LDR0 > 300 ) {
+    //Serial.print("  0: ");
+    //Serial.print(LDR0);
+    while (LDR0 > 200 ) {
         return 0;
     }
-    if (LDR0 < 300) {
+    if (LDR0 < 200) {
         stops();
         delay(3000);
         int readings[5];
         int min_reading = LDR0;
         //obtain min value to identify colour accurately
         for (int t = 1; t < 5; t = t + 1) {
-            forward(10);
+            forward(15);
             delay(400);
             readings[t] = LDR0;
             if (readings[t] < min_reading) {
@@ -384,11 +397,11 @@ int LDR0() {
         stops();
         
         // return colour based on min reading
-        if (min_reading < 300 && min_reading > 150) {
-            return 2; //red
+        if (min_reading < 200 && min_reading > 100) {
+            return 1; //red
         }
-        if (min_reading < 150) {
-            return 1; //yellow
+        if (min_reading < 100) {
+            return 2; //yellow
         }
         else {
             return 3; //uncertain
@@ -401,17 +414,19 @@ int LDR1() {
     // when mine detected, stops, forwards in small steps, stops, returns number based on colour
     
     int LDR1 = analogRead(A9);
+    //Serial.print("  1: ");
+    //Serial.print(LDR1);
     while (LDR1 > 150 ) {
         return 0;
     }
     if (LDR1 < 150) {
         stops();
         delay(3000);
-        int readings[10];
+        int readings[5];
         int min_reading = LDR1;
         //obtain min value to identify colour accurately
         for (int t = 1; t < 5; t = t + 1) {
-            forward(10);
+            forward(15);
             delay(400);
             readings[t] = LDR1;
             if (readings[t] < min_reading) {
@@ -422,10 +437,10 @@ int LDR1() {
         
         // return colour based on min reading
         if (min_reading < 150 && min_reading > 80) {
-            return 2;
+            return 1;
         }
         if (min_reading < 80) {
-            return 1;
+            return 2;
         }
         else {
             return 3;
@@ -438,17 +453,19 @@ int LDR2() {
     // when mine detected, stops, forwards in small steps, stops, returns number based on colour
     
     int LDR2 = analogRead(A10);
-    while (LDR2 > 200 ) {
+    //Serial.print("  2: ");
+    //Serial.print(LDR2);
+    while (LDR2 > 210 ) {
         return 0;
     }
-    if (LDR2 < 200) {
+    if (LDR2 < 210) {
         stops();
         delay(3000);
-        int readings[10];
+        int readings[5];
         int min_reading = LDR2;
         //obtain min value to identify colour accurately
         for (int t = 1; t < 5; t = t + 1) {
-            forward(10);
+            forward(15);
             delay(400);
             readings[t] = LDR2;
             if (readings[t] < min_reading) {
@@ -458,11 +475,11 @@ int LDR2() {
         stops();
         
         // return colour based on min reading
-        if (min_reading < 200 && min_reading > 100) {
-            return 2;
-        }
-        if (min_reading < 100) {
+        if (min_reading < 210 && min_reading > 150) {
             return 1;
+        }
+        if (min_reading < 150) {
+            return 2;
         }
         else {
             return 3;
@@ -475,17 +492,19 @@ int LDR3() {
     // when mine detected, stops, forwards in small steps, stops, returns number based on colour
     
     int LDR3 = analogRead(A11);
-    while (LDR3 > 250 ) {
+    //Serial.print("  3: ");
+    //Serial.print(LDR3);
+    while (LDR3 > 220 ) {
         return 0;
     }
-    if (LDR3 < 250) {
+    if (LDR3 < 220) {
         stops();
         delay(3000);
         int readings[5];
         int min_reading = LDR3;
         //obtain min value to identify colour accurately
         for (int t = 1; t < 5; t = t + 1) {
-            forward(10);
+            forward(15);
             delay(400);
             readings[t] = LDR3;
             if (readings[t] < min_reading) {
@@ -495,11 +514,11 @@ int LDR3() {
         stops();
         
         // return colour based on min reading
-        if (min_reading < 250 && min_reading > 150) {
-            return 2; //red
+        if (min_reading < 220 && min_reading > 150) {
+            return 1; //red
         }
         if (min_reading < 150) {
-            return 1; //yellow
+            return 2; //yellow
         }
         else {
             return 3; //uncertain
@@ -512,17 +531,19 @@ int LDR4() {
     // when mine detected, stops, forwards in small steps, stops, returns number based on colour
     
     int LDR4 = analogRead(A12);
-    while (LDR4 > 300 ) {
+    //Serial.print("  4: ");
+    //Serial.print(LDR4);
+    while (LDR4 > 170 ) {
         return 0;
     }
-    if (LDR4 < 300) {
+    if (LDR4 < 170) {
         stops();
         delay(3000);
         int readings[5];
         int min_reading = LDR4;
         //obtain min value to identify colour accurately
         for (int t = 1; t < 5; t = t + 1) {
-            forward(10);
+            forward(15);
             delay(400);
             readings[t] = LDR4;
             if (readings[t] < min_reading) {
@@ -532,11 +553,11 @@ int LDR4() {
         stops();
         
         // return colour based on min reading
-        if (min_reading < 300 && min_reading > 150) {
-            return 2; //red
+        if (min_reading < 170 && min_reading > 80) {
+            return 1; //red
         }
-        if (min_reading < 150) {
-            return 1; //yellow
+        if (min_reading < 80) {
+            return 2; //yellow
         }
         else {
             return 3; //uncertain
@@ -549,6 +570,8 @@ int LDR5() {
     // when mine detected, stops, forwards in small steps, stops, returns number based on colour
     
     int LDR5 = analogRead(A13);
+    //Serial.print("  5: ");
+    //Serial.println(LDR5);
     while (LDR5 > 200 ) {
         return 0;
     }
@@ -559,7 +582,7 @@ int LDR5() {
         int min_reading = LDR5;
         //obtain min value to identify colour accurately
         for (int t = 1; t < 5; t = t + 1) {
-            forward(10);
+            forward(15);
             delay(400);
             readings[t] = LDR5;
             if (readings[t] < min_reading) {
@@ -569,11 +592,11 @@ int LDR5() {
         stops();
         
         // return colour based on min reading
-        if (min_reading < 200 && min_reading > 150) {
-            return 2; //red
+        if (min_reading < 200 && min_reading > 130) {
+            return 1; //red
         }
-        if (min_reading < 150) {
-            return 1; //yellow
+        if (min_reading < 130) {
+            return 2; //yellow
         }
         else {
             return 3; //uncertain
@@ -589,8 +612,7 @@ int detect() {
     //0 = black, 1 = yellow, 2 = red, 3 = uncertain
     static int detected[6];
     
-    if (LDR0() == 0) {
-        //&& (LDR1() == 0) && (LDR2 == 0) && (LDR3 == 0) && (LDR4 == 0) && (LDR5 == 0) {
+    if ((LDR0() == 0) && (LDR1() == 0) && (LDR2 == 0) && (LDR3 == 0) && (LDR4 == 0) && (LDR5 == 0)) {
         digitalWrite(2, LOW);
         digitalWrite(3, LOW);
         // returns 0 when no mines detected
@@ -598,11 +620,11 @@ int detect() {
     }
     else {
         int a = LDR0();
-        int b = 0; //LDR1();
-        int c = 0; //LDR2();
-        int d = 0; //LDR3();
-        int e = 0; //LDR4();
-        int f = 0; //LDR5();
+        int b = LDR1();
+        int c = LDR2();
+        int d = LDR3();
+        int e = LDR4();
+        int f = LDR5();
         
         /*
          int detected[3];
@@ -620,6 +642,18 @@ int detect() {
         if (e > maxx) { maxx = e; }
         if (f > maxx) { maxx = f; }
         
+        if (maxx == 2) { //yellow
+            digitalWrite(2, HIGH);
+            delay(4000);
+            digitalWrite(2, LOW);
+            forward(100);
+            delay(1000);
+        }
+        if (maxx == 1) { //red
+            digitalWrite(3, HIGH);
+            delay(4000);
+            digitalWrite(3, LOW);
+        }
         return maxx;
         
         /*
