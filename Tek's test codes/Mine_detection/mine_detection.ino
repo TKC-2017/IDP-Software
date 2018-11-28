@@ -22,31 +22,26 @@ void setup() {
 void loop(){
   //mine_detection(float front_distance) {
   // read the input on analog pin A8 to A13:
-  int LDR0 = analogRead(A8);
-  int LDR1 = analogRead(A9);
-  int LDR2 = analogRead(A10);
-  int LDR3 = analogRead(A11);
-  int LDR4 = analogRead(A12);
-  int LDR5 = analogRead(A13);
+  int L0 = analogRead(A8);
+  int L1 = analogRead(A9);
+  int L2 = analogRead(A10);
+  int L3 = analogRead(A11);
+  int L4 = analogRead(A12);
+  int L5 = analogRead(A13);
   // print out the value you read:
   // int LDR_values[6] = {LDR0, LDR1, LDR2, LDR3, LDR4, LDR5};
   //Serial.println(LDR_values);
 
-  int p0 = 0; // 0 = black, +1 = red, -1 = yellow
-  int p1 = 0;
-  int p2 = 0;
-  int p3 = 0;
-  int p4 = 0;
-  int p5 = 0;
+  Serial.print(L0); Serial.print(", ");
+  Serial.print(L1); Serial.print(", ");
+  Serial.print(L2); Serial.print(", ");
+  Serial.print(L3); Serial.print(", ");
+  Serial.print(L4); Serial.print(", ");
+  Serial.println(L5);
 
-  Serial.print(LDR0); Serial.print(", ");
-  Serial.print(LDR1); Serial.print(", ");
-  Serial.print(LDR2); Serial.print(", ");
-  Serial.print(LDR3); Serial.print(", ");
-  Serial.print(LDR4); Serial.print(", ");
-  Serial.println(LDR5);
+}
 
-
+/*
 
   if (LDR0 < 100) {
     p0 = 1;
@@ -81,4 +76,4 @@ void loop(){
 
   delay(100);        // delay in between reads for stability
 
-}
+}*/
