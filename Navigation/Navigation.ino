@@ -11,21 +11,30 @@ void setup() {
   setup_us();
   pinMode(2,OUTPUT);
   pinMode(3,OUTPUT); 
-
+  pinMode(0,INPUT);
 }
 
 
 
 void loop() {
+  /*
+  // push button for start
+  while (digitalRead(0) == LOW) {
+    Serial.print(digitalRead(0));
+    stops();
+  }
+  */
   stops();
   delay(3000);
+  
   // set initial distance to wall range
-  // put this is setup? and then get rid of while (going == 1)
   float range = 75;
   float arena_length = 240;
   int spiral = 1;
   int redmines[100];
   int red_counter = 0;
+  int a_east = heading();
+  
 
   if (spiral == 1) {
    
@@ -48,8 +57,9 @@ void loop() {
         while (spiral % 4 != 0) {
           if ((arena_length - distance(0)) > range) {
             // sensor 1 or 0
-            forward(200);                                       //calibrate
-            
+            //forward(200);                                       //calibrate
+            compass_corrected_forward(spiral, a_east);
+            Serial.print(detect());
             if (detect() == 1) { 
               int *p;
               p = robot_position(spiral);
@@ -89,7 +99,8 @@ void loop() {
         // once spiral is a multiple of 4, break loop, increase range for next inner loop of spiral
         range = range + 25;
         if ((arena_length - distance(0)) > range) {
-          forward(100);                                       //calibrate
+          //forward(100);                                       //calibrate
+          compass_corrected_forward(spiral, a_east);
           
           if (detect() == 1) {
             // store cordinate of red mine
@@ -125,7 +136,7 @@ void loop() {
             }
         }
     }
-
+  
     //end sequence
     // find orientation of robot at end of spiral path
 
@@ -157,7 +168,7 @@ void loop() {
     stops();
    
 delay(1000000000);    
-}   
+}
      
 
     

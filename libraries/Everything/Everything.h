@@ -138,7 +138,7 @@ void avoid2(int faraway) {
     forward(100);
     delay(faraway);
     stops();
-    right_wo_compass();  
+    right_wo_compass();
 }
 
 
@@ -691,4 +691,81 @@ int detect() {
  }
  */
 
+
+
+//COMPASS CORRECTION
+
+
+void compass_corrected_forward(int spiral, int a_east){
+    int going = 1;
+
+    int a_north = a_east + 60-10;
+    int a_west = a_east + 115-10;
+    int a_south = a_east - 102-10;
+    
+    int east = a_east - a_north + 360;
+    int north = 0;
+    int west = a_west - a_north;
+    int south = a_south - a_north + 360;
+    
+    int current_heading = heading()-a_north; // find heading relative to fake north
+    int intended_heading = current_heading;
+    int error_heading = (current_heading - intended_heading);
+    
+    int Kp = 0.5;
+    
+    if (spiral % 4 == 1) {
+        // facing east
+        intended_heading = east;
+    }
+    
+    else if (spiral % 4 == 2) {
+        //facing north
+        intended_heading = north;
+    }
+    
+    else if (spiral % 4 == 3) {
+        // facing west
+        intended_heading = west;
+    }
+    
+    else if (spiral % 4 == 0) {
+        // facing south
+        intended_heading = south;
+    }
+    
+    
+        error_heading = (current_heading - intended_heading);
+        current_heading = heading()-a_north;
+        if(current_heading < 0) {
+            current_heading += 360;
+        }
+        
+        if(current_heading > 360) {
+            current_heading -= 360;
+        }
+        
+        error_heading = current_heading - intended_heading;
+        
+        if(error_heading > 180) {
+            error_heading -= 360;
+        }
+        
+        if (abs(error_heading) > 10) {
+            Kp = 1;
+        }
+        else {
+            Kp = 0.2;
+        }
+        
+        Serial.print(current_heading);
+        Serial.print(" - ");
+        Serial.println(abs(error_heading));
+        
+        myMotor_left->setSpeed(100-error_heading * Kp);
+        myMotor_left->run(BACKWARD);
+        myMotor_right->setSpeed(100+error_heading * Kp);
+        myMotor_right->run(BACKWARD);
+    
+}
 
